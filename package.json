@@ -1,5 +1,5 @@
 {
-    "name": "Rentz-Scorer",
+    "name": "rentz-scorer",
     "version": "1.0.0",
     "description": "A rentz scorer app",
     "main": "main.js",
