@@ -6,8 +6,8 @@
 // process.
 const $ = require('jquery');
 
+$("body").append(`<button onclick="addColumn()">asd</button>`);
 
 function addColumn() {
     $(".players").html("lmao");
-
 }
