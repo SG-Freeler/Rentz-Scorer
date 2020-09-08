@@ -17,36 +17,23 @@ const GameType = {
     WHIST: 'Whist',
     RENTZ: 'Rentz'
 }
+const allGameTypes = [GameType.KING, GameType.QUEENS, GameType.DIAMONDS, GameType.HANDS, GameType.TOTALP, GameType.TOTALM, GameType.WHIST, GameType.RENTZ]
+const GameTypeNumber = 8;
 
-
+const defaultGameValues = {
+    playerNumber: 0,
+    playerTable: [{
+        name: "",
+        unplayed: allGameTypes,
+        score: []
+    }],
+    scoreTable: []
+};
 
 
 const storage = new Storage({
     configName: 'game-state',
-    defaults: {
-        playerNumber: 0,
-        playerTable: [{
-                name: "",
-                unplayed: [GameType.KING, GameType.QUEENS, GameType.DIAMONDS, GameType.HANDS, GameType.TOTALP, GameType.TOTALM, GameType.WHIST, GameType.RENTZ],
-                score: ["0"] // score.length should be  = 8 x (playerData.length)
-            },
-            {
-                name: "",
-                unplayed: [GameType.KING, GameType.QUEENS, GameType.DIAMONDS, GameType.HANDS, GameType.TOTALP, GameType.TOTALM, GameType.WHIST, GameType.RENTZ],
-                score: ["0"]
-            },
-            {
-                name: "",
-                unplayed: [GameType.KING, GameType.QUEENS, GameType.DIAMONDS, GameType.HANDS, GameType.TOTALP, GameType.TOTALM, GameType.WHIST, GameType.RENTZ],
-                score: ["0"]
-            }
-        ],
-        scoreTable: [ // 8 x 3
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-        ]
-    }
+    defaults: defaultGameValues
 
 });
 
@@ -54,13 +41,25 @@ const storage = new Storage({
 
 $('#submitPlayerNumber').click(function() {
 
-    let n = $('#playerNumberSelector').val();
-    storage.set('playerNumber', n);
-    console.log("players:" + storage.get('playerNumber'));
+    let playerNumber = parseInt($('#playerNumberSelector').val());
+    storage.set('playerNumber', playerNumber);
+    storage.set('scoreTable', Array(GameTypeNumber * playerNumber).fill().map(() => Array(playerNumber).fill()));
+
+
+    $('#info').html("Player number is set to:" + storage.get('playerNumber'));
     $('#setupModal').modal('hide');
 });
 
+
+
 $(window).on('load', function() {
-    $('#setupModal').modal('show');
-    $('body').append(storage.data);
+
+    if (storage.get('playerNumber') == 0) {
+        $('#setupButton').html("You need to set up your game!");
+        $('#setupModal').modal('show');
+    } else {
+        $('#info').html("Player number is set to:" + storage.get('playerNumber'));
+        $('#setupButton').html("Modify Setup");
+    }
+
 });
