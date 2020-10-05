@@ -50,8 +50,6 @@ $('#submitPlayerNumber').click(function() {
     $('#setupModal').modal('hide');
 });
 
-
-
 $(window).on('load', function() {
 
     if (storage.get('playerNumber') == 0) {
