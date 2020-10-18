@@ -20,6 +20,12 @@ const GameType = {
 const allGameTypes = [GameType.KING, GameType.QUEENS, GameType.DIAMONDS, GameType.HANDS, GameType.TOTALP, GameType.TOTALM, GameType.WHIST, GameType.RENTZ]
 const GameTypeNumber = 8;
 
+const defaultPlayerValues = {
+    name: "",
+    unplayed: allGameTypes,
+    score: []
+};
+
 const defaultGameValues = {
     playerNumber: 0,
     playerTable: [{
@@ -39,7 +45,7 @@ const storage = new Storage({
 
 
 
-$('#submitPlayerNumber').click(function() {
+$('#submitPlayerNumber').on("click", function() {
 
     let playerNumber = parseInt($('#playerNumberSelector').val());
     storage.set('playerNumber', playerNumber);
@@ -61,3 +67,32 @@ $(window).on('load', function() {
     }
 
 });
+
+function setUpPlayers() {
+
+    let playerNumber = parseInt($('#playerNumberSelector').val());
+    var container = document.getElementById("container");
+    container.innerHTML = '';
+    for (i = 0; i < number; i++) {
+        container.appendChild(document.createTextNode("Name " + (i + 1)));
+        var input = document.createElement("input");
+        input.type = "text";
+        input.name = "name" + i;
+        //input.required= true;
+        container.appendChild(input);
+        container.appendChild(document.createElement("br"));
+    }
+}
+
+function sasdasdasd() {
+    let playerNumber = parseInt($('#playerNumberSelector').val());
+    let container = $("#scoreboard");
+
+    let namefield = $("<input>");
+    namefield.type = 'text';
+
+    for (i = 0; i < playerNumber; i++) {
+
+    }
+
+}
